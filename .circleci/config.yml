@@ -27,7 +27,7 @@ jobs:
           command: |
             . python-flask-docker-env/bin/activate
             docker build -t daisy200029/$IMAGE_NAME:$TAG .
-            # echo $DOCKER_PWD | docker login -u $DOCKER_LOGIN --password-stdin
+            echo $DOCKER_PWD | docker login -u $DOCKER_LOGIN --password-stdin
             docker push daisy200029/$IMAGE_NAME:$TAG
       # - run:
       #     name: Deploy app to Digital Ocean Server via Docker
