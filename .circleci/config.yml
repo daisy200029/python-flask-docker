@@ -38,7 +38,8 @@ jobs:
             echo $GCLOUD_SERVICE_KEY | gcloud auth activate-service-account --key-file=-
             gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
             gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
-            gcloud compute firewall-rules create circleci-allow-http --target-tags http-server --allow tcp:8080
+            #gcloud compute firewall-rules create circleci-allow-http --target-tags http-server --allow tcp:8080
+            gcloud compute instances create-with-container python-flask-docker --tags http-server --container-image daisy200029/python-flask-docker:0.1.9
 
 
 workflows:
