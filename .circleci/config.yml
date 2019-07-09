@@ -1,4 +1,3 @@
-version: 2
 jobs:
   build:
     docker:
@@ -30,11 +29,19 @@ jobs:
             echo $DOCKER_PWD | docker login -u $DOCKER_LOGIN --password-stdin
             docker push daisy200029/$IMAGE_NAME:$TAG
   deploy:
-    docker:
+    docker: 
       - image: google/cloud-sdk
     steps:
-        name: Access google glcoud 
-        command: |
-          echo $GCLOUD_SERVICE_KEY | gcloud auth activate-service-account --key-file=-
-          gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
-          gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
+      - run:
+          name: Access google glcoud 
+          command: |
+            echo $GCLOUD_SERVICE_KEY | gcloud auth activate-service-account --key-file=-
+            gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
+            gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
+      - deploy
