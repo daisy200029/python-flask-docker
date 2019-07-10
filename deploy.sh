@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 VM_NAME="python-flask-docker"
 FIREWALL_NAME="http-server"
 checkVmExist=$(gcloud compute instances list "${VM_NAME}") 

@@ -1,3 +1,4 @@
+version: 2 # use CircleCI 2.0
 jobs:
   build:
     docker:
@@ -32,11 +33,12 @@ jobs:
     docker: 
       - image: google/cloud-sdk
     steps:
+      - checkout
       - run:
-          name: Access google glcoud 
-          command: |
+            name: Access google glcoud 
+            command: |
             chmod +x deploy.sh
-            sh deploy.sh
+            ./deploy.sh
             #echo $GCLOUD_SERVICE_KEY | gcloud auth activate-service-account --key-file=-
             #gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
             #gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
