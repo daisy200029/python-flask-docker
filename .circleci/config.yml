@@ -35,12 +35,13 @@ jobs:
       - run:
           name: Access google glcoud 
           command: |
-            echo $GCLOUD_SERVICE_KEY | gcloud auth activate-service-account --key-file=-
-            gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
-            gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
+            sh ./deploy.sh
+            #echo $GCLOUD_SERVICE_KEY | gcloud auth activate-service-account --key-file=-
+            #gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
+            #gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
             #gcloud compute firewall-rules create circleci-allow-http --target-tags http-server --allow tcp:8080
-            gcloud compute instances create-with-container python-flask-docker --tags http-server --container-image daisy200029/$IMAGE_NAME:$TAG
-
+            #gcloud compute instances create-with-container python-flask-docker --tags http-server --zone ${GOOGLE_COMPUTE_ZONE} --container-image daisy200029/$IMAGE_NAME:$TAG
+            
 
 workflows:
   version: 2
