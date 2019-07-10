@@ -37,6 +37,7 @@ jobs:
       - run:
             name: Access google glcoud 
             command: |
+              chmod 775 deploy.sh
               ./deploy.sh
             #echo $GCLOUD_SERVICE_KEY | gcloud auth activate-service-account --key-file=-
             #gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
