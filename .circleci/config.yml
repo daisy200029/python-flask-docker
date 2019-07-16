@@ -29,6 +29,8 @@ jobs:
             docker build -t ${GITHUB_REPO}/${IMAGE_NAME}:${IMAGE_TAG} .
             echo $DOCKER_PWD | docker login -u $DOCKER_LOGIN --password-stdin
             docker push ${GITHUB_REPO}/${IMAGE_NAME}:${IMAGE_TAG}
+      - setup_remote_docker:
+          docker_layer_caching: true
       - run:
            name: Access google glcoud 
            command: |
