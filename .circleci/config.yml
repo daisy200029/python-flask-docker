@@ -17,7 +17,7 @@ jobs:
       - run:
           name: Run Tests
           command: |
-            . helloworld/bin/activate
+            . python-flask-docker-env/bin/activate
             python unitTest.py
       - setup_remote_docker:
           docker_layer_caching: true
