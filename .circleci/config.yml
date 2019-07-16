@@ -3,6 +3,7 @@ jobs:
   build:
     docker:
       - image: circleci/python:2.7.14
+      - image: 
         environment:
           FLASK_CONFIG: testing
     steps:
@@ -10,8 +11,6 @@ jobs:
       - run:
           name: Setup Staging VirtualEnv
           command: |
-            #echo 'export TAG=0.1.${CIRCLE_BUILD_NUM}' >> $BASH_ENV
-            #echo 'export IMAGE_NAME=python-flask-docker' >> $BASH_ENV
             virtualenv python-flask-docker-env
             . python-flask-docker-env/bin/activate
             pip install --no-cache-dir -r requirements.txt
@@ -27,31 +26,30 @@ jobs:
           command: |
             . python-flask-docker-env/bin/activate
             source staging.sh
-            docker build -t ${GITHUB_REPO}/$IMAGE_NAME:$TAG .
+            docker build -t ${GITHUB_REPO}/${IMAGE_NAME}:${IMAGE_TAG} .
             echo $DOCKER_PWD | docker login -u $DOCKER_LOGIN --password-stdin
-            docker push ${GITHUB_REPO}/$IMAGE_NAME:$TAG
-  deploy:
-    docker: 
-      - image: google/cloud-sdk
-    steps:
-      - checkout
+            docker push ${GITHUB_REPO}/${IMAGE_NAME}:${IMAGE_TAG}
       - run:
-            name: Access google glcoud 
-            command: |
-              #chmod 775 deploy.sh
-              source deploy.sh
-            #echo $GCLOUD_SERVICE_KEY | gcloud auth activate-service-account --key-file=-
-            #gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
-            #gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
-            #gcloud compute firewall-rules create circleci-allow-http --target-tags http-server --allow tcp:8080
-            #gcloud compute instances create-with-container python-flask-docker --tags http-server --zone ${GOOGLE_COMPUTE_ZONE} --container-image daisy200029/$IMAGE_NAME:$TAG
+           name: Access google glcoud 
+          command: |
+            source deploy.sh
+      
+  # deploy:
+  #   docker: 
+  #     - image: google/cloud-sdk
+  #   steps:
+  #     - checkout
+  #     - run:
+  #           name: Access google glcoud 
+  #           command: |
+  #             source deploy.sh
             
 
-workflows:
-  version: 2
-  build_and_test:
-    jobs:
-      - build
-      - deploy:
-         requires:
-           - build
+# workflows:
+#   version: 2
+#   build_and_test:
+#     jobs:
+#       - build
+      # - deploy:
+      #   requires:
+      #     - build

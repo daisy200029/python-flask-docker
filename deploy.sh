@@ -13,7 +13,7 @@ checkVmExist=$(gcloud compute instances list --filter=name:"${VM_NAME}")
 # if vm name not exists, it creates vm with image
 if [[ ${checkVmExist} == *"${VM_NAME}"* ]]
 then
-   gcloud compute --quiet instances update-container ${VM_NAME} --zone ${GOOGLE_COMPUTE_ZONE} --container-image daisy200029/$IMAGE_NAME:$TAG
+   gcloud compute --quiet instances update-container ${VM_NAME} --zone ${GOOGLE_COMPUTE_ZONE} --container-image daisy200029/$IMAGE_NAME:$IMAGE_$TAG
 else
-   gcloud compute --quiet instances create-with-container ${VM_NAME} --tags ${FIREWALL_NAME} --zone ${GOOGLE_COMPUTE_ZONE} --container-image daisy200029/$IMAGE_NAME:$TAG
+   gcloud compute --quiet instances create-with-container ${VM_NAME} --tags ${FIREWALL_NAME} --zone ${GOOGLE_COMPUTE_ZONE} --container-image daisy200029/$IMAGE_NAME:$IMAGE_$TAG
 fi
