@@ -28,6 +28,7 @@ jobs:
             docker build -t ${GITHUB_REPO}/${IMAGE_NAME}:${FINAL_TAG} .
             echo $DOCKER_PWD | docker login -u $DOCKER_LOGIN --password-stdin
             docker push ${GITHUB_REPO}/${IMAGE_NAME}:${FINAL_TAG}
+            echo 'export readonly FINAL_TAG="$IMAGE_TAG"' >> staging.sh
       
   deploy:
     docker: 
