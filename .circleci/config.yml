@@ -3,7 +3,7 @@ jobs:
   build:
     docker:
       - image: circleci/python:2.7.14
-      - image: 
+      - image: google/cloud-sdk
         environment:
           FLASK_CONFIG: testing
     steps:
