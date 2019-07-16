@@ -1,6 +1,6 @@
 version: 2 # use CircleCI 2.0
 jobs:
-  build test and deploy to Docker:
+  test and deploy to Docker:
     docker:
       - image: circleci/python:2.7.14
         environment:
@@ -8,21 +8,21 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Setup Staging VirtualEnv
+          name: Setup Env
           command: |
             echo "IMAGE_TAG=0.1.${CIRCLE_BUILD_NUM}" >> staging.sh
             virtualenv python-flask-docker-env
             . python-flask-docker-env/bin/activate
             pip install --no-cache-dir -r requirements.txt
-      # - run:
-      #     name: Run Tests
-      #     command: |
-      #       . helloworld/bin/activate
-      #       python test_hello_world.py
+      - run:
+          name: Run Tests
+          command: |
+            . helloworld/bin/activate
+            python unitTest.py
       - setup_remote_docker:
           docker_layer_caching: true
       - run:
-          name: Build and push Docker image
+          name: Build and Push Docker Image
           command: |
             . python-flask-docker-env/bin/activate
             source staging.sh
@@ -31,22 +31,22 @@ jobs:
             docker push ${DOCKER_LOGIN}/${IMAGE_NAME}:${IMAGE_TAG}
             
       
-  deploy to staging env:
+  deploy to GCE staging:
     docker: 
       - image: google/cloud-sdk
     steps:
       - checkout
       - run:
-            name: Access google glcoud 
+            name: deploy to Google VM
             command: |
               source deploy.sh
             
 
 workflows:
   version: 2
-  build_and_test:
+  test_and_deploy:
     jobs:
-      - build test and deploy to Docker
-      - deploy to staging env:
+      - test and deploy to Docker
+      - deploy to GCE staging: 
           requires:
-            - build test and deploy to Docker
+            - test and deploy to Docker
