@@ -1,6 +1,6 @@
 version: 2 # use CircleCI 2.0
 jobs:
-  build:
+  build test and deploy to Docker:
     docker:
       - image: circleci/python:2.7.14
         environment:
@@ -31,7 +31,7 @@ jobs:
             docker push ${DOCKER_LOGIN}/${IMAGE_NAME}:${IMAGE_TAG}
             
       
-  deploy:
+  deploy to staging env:
     docker: 
       - image: google/cloud-sdk
     steps:
@@ -46,7 +46,7 @@ workflows:
   version: 2
   build_and_test:
     jobs:
-      - build
-      - deploy:
+      - build test and deploy to Docker
+      - deploy to staging env:
           requires:
-            - build
+            - build test and deploy to Docker
