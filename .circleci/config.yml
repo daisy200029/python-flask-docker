@@ -26,9 +26,9 @@ jobs:
           command: |
             . python-flask-docker-env/bin/activate
             source staging.sh
-            docker build -t ${GITHUB_REPO}/${IMAGE_NAME}:${IMAGE_TAG} .
+            docker build -t ${DOCKER_LOGIN}/${IMAGE_NAME}:${IMAGE_TAG} .
             echo $DOCKER_PWD | docker login -u $DOCKER_LOGIN --password-stdin
-            docker push ${GITHUB_REPO}/${IMAGE_NAME}:${IMAGE_TAG}
+            docker push ${DOCKER_LOGIN}/${IMAGE_NAME}:${IMAGE_TAG}
             
       
   deploy:
