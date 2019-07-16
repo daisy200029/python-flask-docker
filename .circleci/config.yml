@@ -10,7 +10,7 @@ jobs:
       - run:
           name: Setup Staging VirtualEnv
           command: |
-            export TAG=0.1.${CIRCLE_BUILD_NUM}
+            echo 'export TAG=0.1.${CIRCLE_BUILD_NUM}' >> $BASH_ENV
             virtualenv python-flask-docker-env
             . python-flask-docker-env/bin/activate
             pip install --no-cache-dir -r requirements.txt
@@ -26,6 +26,7 @@ jobs:
           command: |
             . python-flask-docker-env/bin/activate
             source staging.sh
+            echo ${IMAGE_TAG}
             docker build -t ${GITHUB_REPO}/${IMAGE_NAME}:${IMAGE_TAG} .
             echo $DOCKER_PWD | docker login -u $DOCKER_LOGIN --password-stdin
             docker push ${GITHUB_REPO}/${IMAGE_NAME}:${IMAGE_TAG}
