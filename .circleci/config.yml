@@ -31,7 +31,7 @@ jobs:
             docker push ${GITHUB_REPO}/${IMAGE_NAME}:${IMAGE_TAG}
       - run:
            name: Access google glcoud 
-          command: |
+           command: |
             source deploy.sh
       
   # deploy:
