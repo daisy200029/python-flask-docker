@@ -39,7 +39,7 @@ jobs:
       - run:
             name: deploy to Google VM
             command: |
-              source deploy.sh
+              source deploy_staging.sh
             
 
 workflows:
