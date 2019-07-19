@@ -62,7 +62,7 @@ else
 
     ## 7. Set Frontend forwarding rule to taget pool
     gcloud compute forwarding-rules create ${GMGI_LOAD_BALANCER_FORWARDING_RULE} \
-        --region ${GOOGLE_COMPUTE_ZONE} \
+        --region ${GOOGLE_COMPUTE_REGION} \
         --ports 8080 \
         --address ${STATIC_ADDRESS} \
         --target-pool ${GMGI_LOAD_BALANCER_NAME}
