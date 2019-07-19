@@ -52,7 +52,7 @@ else
 
     ## 5. Create a target pool for load balance purpose
     gcloud compute target-pools create ${GMGI_LOAD_BALANCER_NAME} \
-        --region ${GOOGLE_COMPUTE_ZONE} \
+        --region ${GOOGLE_COMPUTE_REGION} \
         --http-health-check ${HEALTH_CHECK_NAME}
 
     ## 6. Set target pool to instance group
