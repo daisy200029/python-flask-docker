@@ -6,7 +6,7 @@ source prod.sh
 echo $GCLOUD_SERVICE_KEY | gcloud auth activate-service-account --key-file=-
 gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
 gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
-checkVmExist=$(gcloud compute instance-groups managed list --filter=name:"${GVM_NAME}")
+checkVmExist=$(gcloud compute instance-groups managed list --filter=name:"${GMGI_NAME}")
 # Update or create instance group.
 # if instance group name exists, it create template and then rolling update to the instance group
 # if instance group name not exists, it create instance group with autoscaler, load balancer
