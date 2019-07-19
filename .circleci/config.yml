@@ -31,7 +31,7 @@ jobs:
             docker push ${DOCKER_LOGIN}/${IMAGE_NAME}:${IMAGE_TAG}
             
       
-  deploy to GCE staging:
+  deploy to staging:
     docker: 
       - image: google/cloud-sdk
     steps:
@@ -40,6 +40,15 @@ jobs:
             name: deploy to Google VM
             command: |
               source deploy_staging.sh
+  deploy to prod:
+    docker: 
+      - image: google/cloud-sdk
+    steps:
+      - checkout
+      - run:
+            name: deploy to Google Managed Instance Group
+            command: |
+              source deploy_prod.sh
             
 
 workflows:
@@ -47,6 +56,9 @@ workflows:
   test_and_deploy:
     jobs:
       - test and deploy to Docker
-      - deploy to GCE staging: 
+      - deploy to staging: 
           requires:
             - test and deploy to Docker
+      - deploy to prod: 
+          requires:
+            - deploy to staging
