@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -xv
 ((count = CIRCLE_BUILD_NUM - 2))
-echo "IMAGE_TAG=0.1.${count}" >> prod.sh
+echo -e "IMAGE_TAG=0.1.${count}" >> prod.sh
 source prod.sh
 echo $GCLOUD_SERVICE_KEY | gcloud auth activate-service-account --key-file=-
 gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
@@ -26,7 +26,7 @@ else
         --tags http-server 
         
 
-    ## 2. Create manageed instance group and set template, it will take
+    ## 2. Create manageed instance group and set template
     gcloud compute instance-groups managed create ${GMGI_NAME} \
         --template ${GMGI_TEMPLATE_NAME}-${count} \
         --zone ${GOOGLE_COMPUTE_ZONE} \

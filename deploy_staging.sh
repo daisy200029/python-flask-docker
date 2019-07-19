@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -xv
-echo "IMAGE_TAG=0.1.${CIRCLE_PREVIOUS_BUILD_NUM}" >> staging.sh
+echo -e "IMAGE_TAG=0.1.${CIRCLE_PREVIOUS_BUILD_NUM}" >> staging.sh
 source staging.sh
 echo $GCLOUD_SERVICE_KEY | gcloud auth activate-service-account --key-file=-
 gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
