@@ -15,7 +15,7 @@ docker pull lvthillo/python-flask-docker
 ```
 
 ### Run the container
-Create a container from the image.
+Create a container from the image..
 ```
 $ docker run --name my-container -d -p 8080:8080 lvthillo/python-flask-docker
 ```
